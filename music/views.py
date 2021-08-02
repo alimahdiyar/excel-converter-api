@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from rest_framework import viewsets
+from rest_framework.generics import ListAPIView
+from .serilalizers import SongSerializer
 from django.views.generic import (
     DetailView,
-    ListView,
     UpdateView,
     ListView,
     DeleteView
@@ -10,9 +12,9 @@ from django.views.generic import (
 
 from .models import Song
 
-class SongListView(ListView):
+class SongListView(ListAPIView):
     queryset = Song.objects.all()
-
+    serializer_class = SongSerializer
 
 class SongDetailView(DetailView):
     queryset = Song.objects.all()
@@ -41,3 +43,7 @@ class SongDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('Songs:Song-list')
+
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all().order_by('song_name')
+    serializer_class = SongSerializer
