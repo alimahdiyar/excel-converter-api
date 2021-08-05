@@ -1,15 +1,16 @@
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
-from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from .serilalizers import SongSerializer
+
 from .models import Song
+from .serilalizers import SongSerializer
 
 
 class SongListView(ListAPIView):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
-    search_fields = ['artist', 'category']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['artist', 'category']
 
 
 class SongDetailView(RetrieveAPIView):
