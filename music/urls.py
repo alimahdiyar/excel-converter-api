@@ -1,10 +1,6 @@
 from django.urls import path, include
 from .views import (
-    SongDeleteView,
-    SongDetailView,
-    SongListView,
-    SongUpdateView,
-    # SongViewSet,
+    SongListView, SongDetailView,
 )
 
 from rest_framework import routers
@@ -14,12 +10,8 @@ from rest_framework import routers
 
 app_name = 'Songs'
 urlpatterns = [
-    path('', SongListView.as_view(), name='Song-list'),
-    path('<int:id>/', SongDetailView.as_view(), name='Song-detail'),
-    path('<int:id>/update/', SongUpdateView.as_view(), name='Song-update'),
-    path('<int:id>/delete/', SongDeleteView.as_view(), name='Song-delete'),
-    # path('', include('router.urls')),
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('music/', SongListView.as_view(), name='Song-list'),
+    path('music/<int:id>/', SongDetailView.as_view(), name='Song-detail'),
 ] 
 
 # urlpatterns += router.urls

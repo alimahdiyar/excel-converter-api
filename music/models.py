@@ -4,37 +4,53 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 def song_icon_upload_location(instance, filename):
-    return "artists/%d/song/%s/icon_%s" % (instance.artist.full_name, instance.song_name, filename)
+    return "artist/%d/song/%s/icon_%s" % (instance.artist.full_name, instance.song_name, filename)
+
 
 def song_cover_upload_location(instance, filename):
-    return "artists/%d/song/%s/cover_%s" % (instance.artist.full_name, instance.song_name, filename)
+    return "artist/%d/song/%s/cover_%s" % (instance.artist.full_name, instance.song_name, filename)
+
+
+def category_icon_upload_location(instance, filename):
+    return "category/%s/icon_%s" % (instance.title, filename)
+
+
+def category_cover_upload_location(instance, filename):
+    return "category/%s/cover_%s" % (instance.title, filename)
+
 
 class Artist(models.Model):
     django_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile", blank=True,
                                        null=True)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-
-    @property
-    def full_name(self):
-        return self.first_name + ' ' + self.last_name
+    name = models.CharField(max_length=150)
 
     def __str__(self):
-        return self.full_name
+        return self.name
 
 
-# Create your models here.
+class Category(models.Model):
+    title = models.CharField(max_length=300)
+    icon = models.ImageField(upload_to=category_icon_upload_location,
+                             null=True,
+                             blank=True)
+    cover = models.ImageField(upload_to=category_cover_upload_location,
+                              null=True,
+                              blank=True)
+
+
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     song_name = models.CharField(max_length=300)
     song_file = models.FileField(upload_to='songs')
     icon = models.ImageField(upload_to=song_icon_upload_location,
                              null=True,
                              blank=True)
     cover = models.ImageField(upload_to=song_cover_upload_location,
-                             null=True,
-                             blank=True)
+                              null=True,
+                              blank=True)
 
     def __str__(self):
         return self.song_name + ' - ' + str(self.artist)
