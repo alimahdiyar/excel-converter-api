@@ -39,6 +39,8 @@ class Category(models.Model):
                               null=True,
                               blank=True)
 
+    def __str__(self):
+        return self.title
 
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
