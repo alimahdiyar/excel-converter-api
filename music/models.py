@@ -40,7 +40,7 @@ class Category(models.Model):
                               blank=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 class Producer(models.Model):
     name = models.CharField(max_length=300)
@@ -63,4 +63,4 @@ class Song(models.Model):
                               blank=True)
 
     def __str__(self):
-        return self.song_name + ' - ' + str(self.artist)
+        return self.name + ' - ' + str(self.artist)
