@@ -4,7 +4,7 @@ from .models import Song, Artist, Category, Producer
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['pk', 'title', 'icon', 'cover']
+        fields = ['pk', 'name', 'icon', 'cover']
 
 
 class ArtistSerializer(serializers.ModelSerializer):
@@ -25,4 +25,4 @@ class SongSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Song
-        fields = ['producers', 'pk', 'datetime', 'song_name', 'artist', 'song_file', 'icon', 'cover', 'category']
+        fields = ['producers', 'pk', 'datetime', 'name', 'artist', 'song_file', 'icon', 'cover', 'category']

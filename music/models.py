@@ -31,7 +31,7 @@ class Artist(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
     icon = models.ImageField(upload_to=category_icon_upload_location,
                              null=True,
                              blank=True)
@@ -53,7 +53,7 @@ class Song(models.Model):
     producers = models.ManyToManyField(Producer)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    song_name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
     song_file = models.FileField(upload_to='songs')
     icon = models.ImageField(upload_to=song_icon_upload_location,
                              null=True,

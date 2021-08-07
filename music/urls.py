@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import (
-    SongListView, SongDetailView, ProducerListView, ArtistListView
+    SongListView, SongDetailView, ProducerListView, ArtistListView, SearchFilterView
 )
 
 from rest_framework import routers
@@ -14,6 +14,7 @@ urlpatterns = [
     path('music/<int:id>/', SongDetailView.as_view(), name='Song-detail'),
     path('producer/', ProducerListView.as_view(), name='Song-list'),
     path('artist/', ArtistListView.as_view(), name='Song-list'),
-] 
+    path('search/', SearchFilterView.as_view(), name='Song-list'),
+]
 
 # urlpatterns += router.urls
