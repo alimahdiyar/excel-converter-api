@@ -49,6 +49,7 @@ class Producer(models.Model):
         return self.name
 
 class Song(models.Model):
+    datetime = models.DateTimeField(auto_now = True)
     producers = models.ManyToManyField(Producer)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
