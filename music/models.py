@@ -6,19 +6,19 @@ from django.utils import timezone
 
 
 def song_icon_upload_location(instance, filename):
-    return "artist/%d/song/%s/icon_%s" % (instance.artist.full_name, instance.song_name, filename)
+    return "artist/%d/song/%d/icon_%s" % (instance.artist.pk, instance.pk, filename)
 
 
 def song_cover_upload_location(instance, filename):
-    return "artist/%d/song/%s/cover_%s" % (instance.artist.full_name, instance.song_name, filename)
+    return "artist/%d/song/%d/cover_%s" % (instance.artist.pk, instance.pk, filename)
 
 
 def category_icon_upload_location(instance, filename):
-    return "category/%s/icon_%s" % (instance.title, filename)
+    return "category/%d/icon_%s" % (instance.pk, filename)
 
 
 def category_cover_upload_location(instance, filename):
-    return "category/%s/cover_%s" % (instance.title, filename)
+    return "category/%d/cover_%s" % (instance.pk, filename)
 
 
 class Artist(models.Model):
