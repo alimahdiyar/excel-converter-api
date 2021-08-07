@@ -42,7 +42,14 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+class Producer(models.Model):
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.name
+
 class Song(models.Model):
+    producers = models.ManyToManyField(Producer)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     song_name = models.CharField(max_length=300)
