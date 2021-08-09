@@ -3,8 +3,8 @@ from drf_multiple_model.views import ObjectMultipleModelAPIView
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from .models import Song, Artist, Producer, Category
-from .serilalizers import SongSerializer, ArtistSerializer, ProducerSerializer, CategorySerializer
+from music.models import Song, Artist, Producer, Category
+from music.api_v1.serilalizers import SongSerializer, ArtistSerializer, ProducerSerializer, CategorySerializer
 
 
 class ArtistListView(ListAPIView):

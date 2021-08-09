@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('music.urls'))
+    path('api/v1/', include('music.api_v1.urls'))
 ]
 
 if settings.DEBUG:
