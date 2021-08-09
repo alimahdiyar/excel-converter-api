@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.db.models.signals import post_save
 from django.urls import reverse
@@ -46,14 +48,17 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Producer(models.Model):
     name = models.CharField(max_length=300)
 
     def __str__(self):
         return self.name
 
+
 class Song(models.Model):
-    datetime = models.DateTimeField(auto_now = True)
+    datetime = models.DateTimeField(auto_now=True)
+    duration = models.DurationField(default=timedelta(minutes=1))
     producers = models.ManyToManyField(Producer)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
