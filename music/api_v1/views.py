@@ -12,6 +12,11 @@ class ArtistListView(ListAPIView):
     serializer_class = ArtistSerializer
 
 
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
 class ProducerListView(ListAPIView):
     queryset = Producer.objects.all()
     serializer_class = ProducerSerializer

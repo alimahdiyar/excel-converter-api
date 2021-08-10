@@ -5,7 +5,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 from music.api_v1.views import (
-    SongListView, SongDetailView, ProducerListView, ArtistListView, SearchFilterView
+    SongListView, SongDetailView, ProducerListView, ArtistListView, SearchFilterView, CategoryListView
 )
 
 schema_view = get_schema_view(
@@ -20,10 +20,11 @@ schema_view = get_schema_view(
 
 app_name = 'Songs'
 urlpatterns = [
-    path('music/', SongListView.as_view(), name='Song-list'),
-    path('music/<int:id>/', SongDetailView.as_view(), name='Song-detail'),
-    path('producer/', ProducerListView.as_view(), name='Song-list'),
-    path('artist/', ArtistListView.as_view(), name='Song-list'),
+    path('music/', SongListView.as_view(), name='song-list'),
+    path('music/<int:id>/', SongDetailView.as_view(), name='song-detail'),
+    path('producer/', ProducerListView.as_view(), name='producer-list'),
+    path('artist/', ArtistListView.as_view(), name='artist-list'),
+    path('category/', CategoryListView.as_view(), name='category-list'),
     path('search/', SearchFilterView.as_view(), name='Song-list'),
 
         # docs
