@@ -3,16 +3,17 @@ from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from rest_framework.authtoken.views import obtain_auth_token
 
-from music.api_v1.views import (
-    SongListView, SongDetailView, ProducerListView, ArtistListView, SearchFilterView, CategoryListView
+from core.api_v1.views import (
+    ExcelPatternUploadedFileCreateView, ExcelPatternListView
 )
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Station 49 API",
+        title="Excel Converter API",
         default_version='development version',
-        description="Station 49 API Documentation",
+        description="Excel Converter API Documentation",
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -20,14 +21,11 @@ schema_view = get_schema_view(
 
 app_name = 'Songs'
 urlpatterns = [
-    path('music/', SongListView.as_view(), name='song-list'),
-    path('music/<int:id>/', SongDetailView.as_view(), name='song-detail'),
-    path('producer/', ProducerListView.as_view(), name='producer-list'),
-    path('artist/', ArtistListView.as_view(), name='artist-list'),
-    path('category/', CategoryListView.as_view(), name='category-list'),
-    path('search/', SearchFilterView.as_view(), name='Song-list'),
+    path('user_profile/pattern/list/', ExcelPatternListView.as_view(), name='pattern-list'),
+    path('user_profile/pattern/<int:pk>/upload-excel/', ExcelPatternUploadedFileCreateView.as_view(), name='pattern-list'),
+    path('user_profile/api-token-auth/', obtain_auth_token, name='api-token-auth'),
 
-        # docs
+    # docs
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
