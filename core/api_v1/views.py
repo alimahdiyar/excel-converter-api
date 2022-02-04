@@ -107,10 +107,10 @@ class ExcelPatternUploadedFileCreateView(CreateAPIView):
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
 
     def create(self, request, *args, **kwargs):
-        user_profile = self.request.user.user_profile
-
         # TODO: only use the pattern for the owner
+        # user_profile = self.request.user.user_profile
         # the_pattern = get_object_or_404(ExcelPattern.objects.all(), owner=user_profile, pk=kwargs['pk'])
+
         the_pattern = get_object_or_404(ExcelPattern.objects.all(), pk=kwargs['pk'])
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
