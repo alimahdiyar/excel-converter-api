@@ -114,7 +114,7 @@ class ExcelPatternUploadedFileCreateView(CreateAPIView):
         the_pattern = get_object_or_404(ExcelPattern.objects.all(), pk=kwargs['pk'])
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(pattern=the_pattern)
+        # serializer.save(pattern=the_pattern)
 
         from_wb = load_workbook(filename=request.FILES['the_file'].file)
         workbook = generate_excel(from_wb)
