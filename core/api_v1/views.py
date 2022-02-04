@@ -99,14 +99,18 @@ def generate_excel(from_wb):
     return wb
 
 class ExcelPatternUploadedFileCreateView(CreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    # TODO: uncomment authentication
+    # permission_classes = (IsAuthenticated,)
     queryset = ExcelPatternUploadedFile.objects.all()
     serializer_class = ExcelPatternUploadedFileCreateSerializer
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
 
     def create(self, request, *args, **kwargs):
         user_profile = self.request.user.user_profile
-        the_pattern = get_object_or_404(ExcelPattern.objects.all(), owner=user_profile, pk=kwargs['pk'])
+
+        # TODO: only use the pattern for the owner
+        # the_pattern = get_object_or_404(ExcelPattern.objects.all(), owner=user_profile, pk=kwargs['pk'])
+        the_pattern = get_object_or_404(ExcelPattern.objects.all(), pk=kwargs['pk'])
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(pattern=the_pattern)
