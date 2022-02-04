@@ -4,7 +4,7 @@ from drf_multiple_model.views import ObjectMultipleModelAPIView
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, get_object_or_404
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment
@@ -99,8 +99,9 @@ def generate_excel(from_wb):
     return wb
 
 class ExcelPatternUploadedFileCreateView(CreateAPIView):
-    # TODO: uncomment authentication
+    # TODO: fix authentication
     # permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     queryset = ExcelPatternUploadedFile.objects.all()
     serializer_class = ExcelPatternUploadedFileCreateSerializer
     parser_classes = (FormParser, MultiPartParser, FileUploadParser)
