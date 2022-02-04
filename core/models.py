@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 def file_upload_location(instance, filename):
-    return "file/%d/%s" % (instance.pattern.pk, filename)
+    return "file/%d/generated-%s" % (instance.pattern.pk, filename)
 
 
 class UserProfile(models.Model):
@@ -28,6 +28,7 @@ class ExcelPattern(models.Model):
 class ExcelPatternUploadedFile(models.Model):
     pattern = models.ForeignKey(ExcelPattern, on_delete=models.PROTECT, related_name="uploaded_files")
     the_file = models.FileField(upload_to=file_upload_location)
+    # generated_file = models.FileField(blank=True, null=True, upload_to=file_upload_location)
 
     def __str__(self):
         return self.pattern.name + str(self.the_file)
